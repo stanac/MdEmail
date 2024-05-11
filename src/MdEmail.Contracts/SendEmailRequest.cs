@@ -2,14 +2,39 @@
 
 public class SendEmailRequest
 {
-    public EmailAddressCollection To { get; } = new();
-    public EmailAddressCollection Cc { get; } = new();
-    public EmailAddressCollection Bcc { get; } = new();
+    /// <summary>
+    /// Email To field
+    /// </summary>
+    public EmailAddressCollection To { get; internal set; } = new();
 
+    /// <summary>
+    /// Email CC field
+    /// </summary>
+    public EmailAddressCollection Cc { get; internal set; } = new();
+
+    /// <summary>
+    /// Email BCC field
+    /// </summary>
+    public EmailAddressCollection Bcc { get; internal set; } = new();
+
+    /// <summary>
+    /// Email subject
+    /// </summary>
     public required string Subject { get; set; }
+
+    /// <summary>
+    /// Email body
+    /// </summary>
     public EmailBody Body { get; } = new();
 
+    /// <summary>
+    /// When set, value will be used for From name instead of value from configuration
+    /// </summary>
     public string? OverrideDefaultFromName { get; set; }
+
+    /// <summary>
+    /// When set, value will be used for From email address instead of value from configuration
+    /// </summary>
     public string? OverrideDefaultFromEmailAddress { get; set; }
 
     internal void EnsureValid()

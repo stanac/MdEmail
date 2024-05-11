@@ -28,6 +28,11 @@ public class MdEmailSender : IMdEmailSender
         await client.DisconnectAsync(true, cancellationToken);
     }
 
+    public MarkdownPipeline? GetMarkdownPipeline()
+    {
+        return _config.MarkdigPipelineFactory();
+    }
+
     private MimeMessage CreateMessage(SendEmailRequest request)
     {
         MimeMessage msg = new MimeMessage
@@ -118,10 +123,4 @@ public class MdEmailSender : IMdEmailSender
 
         return client;
     }
-}
-
-public interface IMdEmailSender
-{
-    Task SendAsync(SendEmailRequest request);
-    Task SendAsync(SendEmailRequest request, CancellationToken cancellationToken);
 }
