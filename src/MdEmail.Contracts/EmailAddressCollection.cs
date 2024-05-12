@@ -1,10 +1,14 @@
 ﻿using System.Collections;
+using System.Diagnostics;
 
 namespace MdEmail.Contracts;
 
 /// <summary>
 /// Collection of email addresses
 /// </summary>
+#if DEBUG
+[DebuggerDisplay("{ToDebugString()}")]
+#endif
 public class EmailAddressCollection : IEnumerable<string>
 {
     private readonly ISet<string> _addresses = new HashSet<string>();
@@ -43,4 +47,18 @@ public class EmailAddressCollection : IEnumerable<string>
     {
         return GetEnumerator();
     }
+
+#if DEBUG
+    private string ToDebugString()
+    {
+        string s = $"{nameof(EmailAddressCollection)}, Count: {_addresses.Count}";
+
+        if (_addresses.Count < 4)
+        {
+            s += "; " + string.Join("; ", _addresses);
+        }
+
+        return s;
+    }
+#endif
 }

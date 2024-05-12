@@ -7,7 +7,7 @@ public class TemplateInfo
     public required string Renderer { get; set; }
     public required string Subject { get; set; }
 
-    public string? CreateBy { get; set; }
+    public string? CreatedBy { get; set; }
     public DateTimeOffset? CreatedDate { get; set; }
     public string? LastEditedBy { get; set; }
     public DateTimeOffset? LastEditedDate { get; set; }
@@ -21,7 +21,7 @@ public class TemplateInfo
             Renderer = Renderer,
             Subject = Subject,
 
-            CreateBy = CreateBy,
+            CreatedBy = CreatedBy,
             CreatedDate = CreatedDate,
             LastEditedBy = LastEditedBy,
             LastEditedDate = LastEditedDate,

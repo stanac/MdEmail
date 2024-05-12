@@ -1,6 +1,6 @@
 # MdEmail
 
-Simple email sending library (over STMP) with support for Markdown for .NET 8+. Depends on `Markdig` and `MailKit`.
+Simple email sending library (over SMTP) with support for Markdown for .NET 8+. Depends on `Markdig` and `MailKit`.
 
 ---
 
@@ -130,23 +130,25 @@ Multiple renderers can be registered.
 (this example is using Razor for rendering and Sqlite for storage)
 
 ```csharp
-const string RazorRendererKey = "razor";
 const string TemplateKey = "template1";
 
-// Create sender
+// Create config
 
 ConfigurationBuilder cb = new ConfigurationBuilder();
 cb.AddUserSecrets(typeof(Program).Assembly, optional: false);
+IConfigurationRoot appConfig = cb.Build();
 
-MdEmailConfiguration config = cb.Build().GetSection("smtp").Get<MdEmailConfiguration>()
+MdEmailConfiguration config = appConfig.GetSection("smtp").Get<MdEmailConfiguration>()
     ?? throw new InvalidOperationException("Failed to get config from secrets");
+
+// Create senders
 
 IMdEmailSender sender = new MdEmailSender(config);
 ITemplateRepository templateRepo = new SqliteTemplateRepository("Data Source=emailTemplates.sqlite");
 IRenderer renderer = new RazorRenderer();
 
 IMdEmailTemplateSender templateSender = new MdEmailTemplateSender(templateRepo, sender);
-templateSender.AddRenderer(RazorRendererKey, () => renderer);
+templateSender.AddRenderer(RazorRenderer.Key, () => renderer);
 
 // Register template
 
@@ -154,26 +156,33 @@ await templateRepo.UpsertAsync(new Template
 {
     TemplateKey = TemplateKey,
     TenantKey = TenantDefaults.DefaultTenantKey,
-    Renderer = RazorRendererKey,
+    Renderer = RazorRenderer.Key,
     Subject = "Test subject",
     MdTemplate = @"
 
-Hello @FirstName @LastName,
+Hello @Model.FirstName @Model.LastName,
 
-**Welcome** to `@AppName`
+**Welcome** to `@Model.AppName`
 
     "
 });
 
 // Send email from template
 
+string testRecipient = appConfig["testRecipient"]
+    ?? throw new InvalidOperationException("Failed to get `testRecipient` from user secrets");
+
 SendTemplateEmailRequest request = new SendTemplateEmailRequest
 {
     TemplateKey = TemplateKey,
+    To =
+    {
+        testRecipient
+    },
     Data =
     {
         {"FirstName", "John"},
-        {"LastName", "John"},
+        {"LastName", "Doe"},
         {"AppName", "SuperApp"}
     }
 };
