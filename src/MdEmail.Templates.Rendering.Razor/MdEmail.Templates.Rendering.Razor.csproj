@@ -5,18 +5,29 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
+		<Description>Razor renderer for MdEmail.Templates</Description>
+		<Summary>Razor renderer for MdEmail.Templates</Summary>
+
 		<!-- This group contains project properties for RazorLight on .NET Core -->
 		<PreserveCompilationContext>true</PreserveCompilationContext>
 		<MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
 		<MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="RazorLight" Version="2.3.1" />
+		<PackageReference Include="RazorLight" Version="[2.*, 3)" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\MdEmail.Templates\MdEmail.Templates.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="README.md">
+	    <PackagePath>\</PackagePath>
+	    <Pack>True</Pack>
+	  </None>
 	</ItemGroup>
 
 </Project>

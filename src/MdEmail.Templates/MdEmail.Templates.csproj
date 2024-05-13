@@ -1,22 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Description>Markdown Email Templates</Description>
+		<Summary>Markdown Email Templates</Summary>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MdEmail.Templates.Contracts\MdEmail.Templates.Contracts.csproj" />
-    <ProjectReference Include="..\MdEmail\MdEmail.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\MdEmail.Templates.Contracts\MdEmail.Templates.Contracts.csproj" />
+		<ProjectReference Include="..\MdEmail\MdEmail.csproj" />
+	</ItemGroup>
 
 </Project>

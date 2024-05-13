@@ -11,7 +11,7 @@ public class SqliteTemplateRepository : ITemplateRepository
     private readonly bool _useWal;
 
     public SqliteTemplateRepository(string connectionString)
-        : this (connectionString, "mdTemplates")
+        : this (connectionString, "mdEmailTemplates")
     {
     }
 
@@ -144,7 +144,7 @@ public class SqliteTemplateRepository : ITemplateRepository
 
     private void Initialize()
     {
-        string sql = $@"
+        string createTableSql = $@"
             CREATE TABLE IF NOT EXISTS {_dbTableName} (
                 TenantKey      TEXT NOT NULL,
                 TemplateKey    TEXT NOT NULL,
@@ -161,9 +161,14 @@ public class SqliteTemplateRepository : ITemplateRepository
             )
         ";
 
+        string createIndexSql = $@"
+            CREATE INDEX IF NOT EXISTS IX_{_dbTableName}_TenantKey ON {_dbTableName}(TenantKey)
+        ";
+
         using SqliteConnection c = CreateAndOpenConnection();
 
-        c.Execute(sql);
+        c.Execute(createTableSql);
+        c.Execute(createIndexSql);
     }
 
     private SqliteConnection CreateAndOpenConnection()

@@ -9,7 +9,7 @@ public class RazorRenderer : IRenderer
     public const string Key = "Razor";
 
     public bool UseSyncRendering => false;
-
+    
     public string Render(string template, IDictionary<string, object> data)
     {
         return RenderAsync(template, data, CancellationToken.None).GetAwaiter().GetResult();

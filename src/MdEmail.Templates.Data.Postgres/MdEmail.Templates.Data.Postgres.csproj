@@ -1,18 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Description>Postgres store for MdEmail.Templates</Description>
+		<Summary>Postgres store for MdEmail.Templates</Summary>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Dapper" Version="[2.*, 3)" />
-    <PackageReference Include="Npgsql" Version="[8.*, 9)" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Dapper" Version="[2.*, 3)" />
+		<PackageReference Include="Npgsql" Version="[8.*, 9)" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MdEmail.Templates\MdEmail.Templates.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\MdEmail.Templates\MdEmail.Templates.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 
 </Project>
